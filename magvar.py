@@ -47,7 +47,9 @@ def get_mag_var(lat, lon, year, month, day, elev=0):
         soup = BeautifulSoup(c,'html.parser')
         deg_text = soup.find_all('b')[-1].text.strip()
         # strip out the junk so we have a number
-        deg = re.search(r'D  =    (.*?) deg', deg_text).group(1)
+        # Strip spaces before the search
+        deg_text = deg_text.replace(" ","")
+        deg = re.search(r'D=(.*?)deg', deg_text).group(1)
         deg = float(deg)
         return deg
     else:
